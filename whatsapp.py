@@ -30,3 +30,13 @@ class WhatsAppHandler():
             return WhatsAppState.AskingForLogin
         except:
             pass
+
+handler = WhatsAppHandler()
+handler.load_driver()
+handler.launch_whatsapp()
+
+# wait for login page
+while handler.check_whatsapp_state() != WhatsAppState.AskingForLogin:
+    pass
+
+print("Loaded WhatsApp Web!")
