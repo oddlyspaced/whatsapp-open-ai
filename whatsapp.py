@@ -47,6 +47,12 @@ class WhatsAppHandler():
         chat_text_box.send_keys("Hello")
         self.driver.find_element(By.CLASS_NAME, "_1Ae7k").click()
     
+    def get_contact_name_chat(self) -> str:
+        if self.check_whatsapp_state() != WhatsAppState.ChatPage:
+            raise Exception("Chat Page not open!")
+        time.sleep(2)
+        return self.driver.find_element(By.CLASS_NAME, "_21nHd").text
+    
     def get_latest_text(self, contact: str) -> str:
         if self.check_whatsapp_state() != WhatsAppState.ChatPage:
             raise Exception("Chat Page not open!")
