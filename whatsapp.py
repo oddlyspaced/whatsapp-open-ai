@@ -25,6 +25,17 @@ class WhatsAppHandler():
     # launches whatsapp web page
     def launch_whatsapp(self) -> None:
         self.driver.get("https://web.whatsapp.com")
+    
+    def open_chat(self, contact: str) -> None:
+        searchbox = self.driver.find_element(By.CLASS_NAME, "_16C8p")
+        searchbox.click()
+        self.driver.find_element(By.XPATH, "//*[@id='side']/div[1]/div/div/div[2]/div/div[2]").send_keys(contact)
+        results = self.driver.find_elements(By.CLASS_NAME, "zoWT4")
+        print(len(results))
+        for user in results:
+            if contact == str(user.text):
+                user.click()
+                break
 
     # function to wait for whatsapp to load
     # TODO: Improve multi check handling
@@ -47,7 +58,7 @@ handler.launch_whatsapp()
 
 # wait for login page
 while handler.check_whatsapp_state() not in [WhatsAppState.AskingForLogin, WhatsAppState.MainPage]:
-    print(handler.check_whatsapp_state())
     pass
 
 print("Loaded WhatsApp Web!")
+handler.open_chat("Me Airtel")
