@@ -45,6 +45,18 @@ class WhatsAppHandler():
         chat_text_box.click()
         chat_text_box.send_keys("Hello")
         self.driver.find_element(By.CLASS_NAME, "_1Ae7k").click()
+    
+    def get_latest_text(self, contact: str) -> str:
+        if self.check_whatsapp_state() != WhatsAppState.ChatPage:
+            raise Exception("Chat Page not open!")
+        messages = self.driver.find_elements(By.CLASS_NAME, "_22Msk")
+        latest = None
+        for message in messages:
+            parent_temp = message.find_element(By.XPATH, "..")
+            aria_label = parent_temp.find_element(By.TAG_NAME, "span")
+            if contact in str(aria_label.get_attribute("aria-label")):
+                latest = message
+        return latest.text
 
     # function to wait for whatsapp to load
     # TODO: Improve multi check handling
@@ -77,3 +89,4 @@ while handler.check_whatsapp_state() not in [WhatsAppState.AskingForLogin, Whats
 print("Loaded WhatsApp Web!")
 handler.open_chat("Me Airtel")
 handler.send_message("Hello")
+print(handler.get_latest_text("Me Airtel"))
