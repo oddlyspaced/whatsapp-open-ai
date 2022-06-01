@@ -5,6 +5,9 @@ from selenium.webdriver.common.by import By
 from config import ProjectConfig as config
 import enum
 import time
+import openai
+
+openai.api_key = config.api_key
 
 # enum to hold whatsapp web page states
 class WhatsAppState(enum.Enum):
@@ -90,6 +93,14 @@ class WhatsAppHandler():
             return WhatsAppState.Undefined
             pass
 
+class GPT3Handler:
+    def __init__(self) -> None:
+        pass
+
+    def get_response(self, prompt: str) -> str:
+        response = openai.Completion.create(engine="text-davinci-002", prompt=prompt, temperature=0, max_tokens=6)
+        return response
+
 handler = WhatsAppHandler()
 handler.load_driver()
 handler.launch_whatsapp()
@@ -109,4 +120,5 @@ while True:
     temp = handler.get_latest_text("Me Airtel")
     if temp != latest:
         print(temp)
+        handler.send_message(GPT3Handler().get_response(temp))
         latest = temp
