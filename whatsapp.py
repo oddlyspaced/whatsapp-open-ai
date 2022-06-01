@@ -37,6 +37,14 @@ class WhatsAppHandler():
             if contact == str(user.text):
                 user.click()
                 break
+    
+    def send_message(self, text: str) -> None:
+        if self.check_whatsapp_state() != WhatsAppState.ChatPage:
+            raise Exception("Chat Page not open!")
+        chat_text_box = self.driver.find_element(By.XPATH, "//*[@id='main']/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]")
+        chat_text_box.click()
+        chat_text_box.send_keys("Hello")
+        self.driver.find_element(By.CLASS_NAME, "_1Ae7k").click()
 
     # function to wait for whatsapp to load
     # TODO: Improve multi check handling
@@ -68,3 +76,4 @@ while handler.check_whatsapp_state() not in [WhatsAppState.AskingForLogin, Whats
 
 print("Loaded WhatsApp Web!")
 handler.open_chat("Me Airtel")
+handler.send_message("Hello")
