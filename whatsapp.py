@@ -12,12 +12,14 @@ class WhatsAppHandler():
     def __init__(self) -> None:
         driver = None
     
+    # loads up chrome driver and launches window
     def load_driver(self) -> None:
         # setting up chrome instance
         options = ChromeOptions()
         options.add_argument("--user-data-dir=" + config.data_direc)
         self.driver = webdriver.Chrome(options=options)
 
+    # launches whatsapp web page
     def launch_whatsapp(self) -> None:
         self.driver.get("https://web.whatsapp.com")
 
