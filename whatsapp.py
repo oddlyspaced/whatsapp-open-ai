@@ -1,6 +1,7 @@
 from distutils.command.config import config
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions
+from selenium.webdriver.common.by import By
 from config import ProjectConfig as config
 import enum
 
@@ -26,7 +27,7 @@ class WhatsAppHandler():
     # function to wait for whatsapp to load
     def check_whatsapp_state(self) -> WhatsAppState:
         try :
-            self.driver.find_element_by_class_name("_2WuPw")
+            self.driver.find_element(By.CLASS_NAME, "_2WuPw")
             return WhatsAppState.AskingForLogin
         except:
             pass
