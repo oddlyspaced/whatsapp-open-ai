@@ -1,2 +1,4 @@
 data/*
 config.py
+__pycache__/
+whatsapp.ipynb
