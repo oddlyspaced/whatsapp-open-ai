@@ -4,6 +4,7 @@ from selenium.webdriver import ChromeOptions
 from selenium.webdriver.common.by import By
 from config import ProjectConfig as config
 import enum
+import time
 
 # enum to hold whatsapp web page states
 class WhatsAppState(enum.Enum):
@@ -49,6 +50,7 @@ class WhatsAppHandler():
     def get_latest_text(self, contact: str) -> str:
         if self.check_whatsapp_state() != WhatsAppState.ChatPage:
             raise Exception("Chat Page not open!")
+        time.sleep(2)
         messages = self.driver.find_elements(By.CLASS_NAME, "_22Msk")
         latest = None
         for message in messages:
