@@ -102,3 +102,11 @@ print("Loaded WhatsApp Web!")
 handler.open_chat("Me Airtel")
 # handler.send_message("Hello")
 print(handler.get_latest_text("Me Airtel"))
+
+latest = handler.get_latest_text("Me Airtel")
+while True:
+    time.sleep(5)
+    temp = handler.get_latest_text("Me Airtel")
+    if temp != latest:
+        print(temp)
+        latest = temp
