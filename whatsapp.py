@@ -9,6 +9,7 @@ import enum
 class WhatsAppState(enum.Enum):
     AskingForLogin = 1
     MainPage = 2
+    ChatPage = 3
     Undefined = 99
 
 class WhatsAppHandler():
@@ -48,6 +49,11 @@ class WhatsAppHandler():
                 self.driver.find_element(By.CLASS_NAME, "_1y6Yk")
                 return WhatsAppState.MainPage
             except:
+                try:
+                    self.driver.find_element(By.CLASS_NAME, "_2vbn4")
+                    return WhatsAppState.ChatPage
+                except:
+                    return WhatsAppState.Undefined
                 return WhatsAppState.Undefined
             return WhatsAppState.Undefined
             pass
