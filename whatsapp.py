@@ -64,7 +64,11 @@ class WhatsAppHandler():
             aria_label = parent_temp.find_element(By.TAG_NAME, "span")
             if contact in str(aria_label.get_attribute("aria-label")):
                 latest = message
-        return latest.text
+        msg = str(latest.text)
+        try:
+            return (msg[0:msg.rindex('\n')])
+        except:
+            return msg
 
     # function to wait for whatsapp to load
     # TODO: Improve multi check handling
@@ -96,5 +100,5 @@ while handler.check_whatsapp_state() not in [WhatsAppState.AskingForLogin, Whats
 
 print("Loaded WhatsApp Web!")
 handler.open_chat("Me Airtel")
-handler.send_message("Hello")
+# handler.send_message("Hello")
 print(handler.get_latest_text("Me Airtel"))
