@@ -4,6 +4,7 @@ from selenium.webdriver import ChromeOptions
 from config import ProjectConfig as config
 import enum
 
+# enum to hold whatsapp web page states
 class WhatsAppState(enum.Enum):
     AskingForLogin = 1
 
