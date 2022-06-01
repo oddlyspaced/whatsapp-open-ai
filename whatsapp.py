@@ -9,3 +9,11 @@ options.add_argument("--user-data-dir=" + config.data_direc)
 
 # launching driver
 driver = webdriver.Chrome(options=options)
+
+# function to wait for whatsapp to load
+def check_whatsapp_state():
+    try :
+        driver.find_element_by_class_name("_2WuPw")
+        return "Login"
+    except:
+        pass
