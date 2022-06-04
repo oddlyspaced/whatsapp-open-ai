@@ -47,7 +47,7 @@ class WhatsAppHandler():
             raise Exception("Chat Page not open!")
         chat_text_box = self.driver.find_element(By.XPATH, "//*[@id='main']/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]")
         chat_text_box.click()
-        chat_text_box.send_keys("Hello")
+        chat_text_box.send_keys(text)
         self.driver.find_element(By.CLASS_NAME, "_1Ae7k").click()
     
     def get_contact_name_chat(self) -> str:
