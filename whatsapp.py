@@ -114,7 +114,15 @@ handler.launch_whatsapp()
 while handler.check_whatsapp_state() not in [WhatsAppState.AskingForLogin, WhatsAppState.MainPage]:
     pass
 
+if handler.check_whatsapp_state() == WhatsAppState.AskingForLogin:
+    while handler.check_whatsapp_state() != WhatsAppState.MainPage:
+        time.sleep(5)
+        print("Need to Login!")
+        pass
+
 print("Loaded WhatsApp Web!")
+print("Waiting for sync...")
+time.sleep(10)
 handler.open_chat(config.contact_name)
 
 latest = handler.get_latest_text(config.contact_name)
