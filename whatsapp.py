@@ -110,14 +110,12 @@ while handler.check_whatsapp_state() not in [WhatsAppState.AskingForLogin, Whats
     pass
 
 print("Loaded WhatsApp Web!")
-handler.open_chat("Me Airtel")
-# handler.send_message("Hello")
-print(handler.get_latest_text("Me Airtel"))
+handler.open_chat(config.contact_name)
 
-latest = handler.get_latest_text("Me Airtel")
+latest = handler.get_latest_text(config.contact_name)
 while True:
     time.sleep(5)
-    temp = handler.get_latest_text("Me Airtel")
+    temp = handler.get_latest_text(config.contact_name)
     if temp != latest:
         print(temp)
         handler.send_message(GPT3Handler().get_response(temp))
