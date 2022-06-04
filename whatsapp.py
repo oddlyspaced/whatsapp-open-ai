@@ -99,7 +99,7 @@ class GPT3Handler:
 
     def get_response(self, prompt: str) -> str:
         response = openai.Completion.create(engine="text-davinci-002", prompt=prompt, temperature=0, max_tokens=6)
-        return response
+        return response.choices[0].text
 
 handler = WhatsAppHandler()
 handler.load_driver()
