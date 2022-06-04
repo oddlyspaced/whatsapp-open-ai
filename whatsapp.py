@@ -31,6 +31,7 @@ class WhatsAppHandler():
     def launch_whatsapp(self) -> None:
         self.driver.get("https://web.whatsapp.com")
     
+    # uses xpath and search result iterations to open chat for particular contact
     def open_chat(self, contact: str) -> None:
         searchbox = self.driver.find_element(By.CLASS_NAME, "_16C8p")
         searchbox.click()
@@ -42,6 +43,7 @@ class WhatsAppHandler():
                 user.click()
                 break
     
+    # types in a message and sends it by clicking on send button
     def send_message(self, text: str) -> None:
         if self.check_whatsapp_state() != WhatsAppState.ChatPage:
             raise Exception("Chat Page not open!")
@@ -50,12 +52,14 @@ class WhatsAppHandler():
         chat_text_box.send_keys(text)
         self.driver.find_element(By.CLASS_NAME, "_1Ae7k").click()
     
+    # helper method to get contact name of currently open chat
     def get_contact_name_chat(self) -> str:
         if self.check_whatsapp_state() != WhatsAppState.ChatPage:
             raise Exception("Chat Page not open!")
         time.sleep(2)
         return self.driver.find_element(By.CLASS_NAME, "_21nHd").text
     
+    # fetches latest text by sender
     def get_latest_text(self, contact: str) -> str:
         if self.check_whatsapp_state() != WhatsAppState.ChatPage:
             raise Exception("Chat Page not open!")
@@ -97,6 +101,7 @@ class GPT3Handler:
     def __init__(self) -> None:
         pass
 
+    # fetches response from gpt 3
     def get_response(self, prompt: str) -> str:
         response = openai.Completion.create(engine="text-davinci-002", prompt=prompt, temperature=0, max_tokens=6)
         return response.choices[0].text
